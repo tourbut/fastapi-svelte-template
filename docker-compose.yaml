@@ -1,0 +1,27 @@
+version: '1.0'
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: knowsdb
+    restart: always
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+      - ./script/initdb:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+    ports:
+      - "5432:5432"
+  
+volumes:
+  app-db-data:
+
+networks:
+  knowslog-public:
+    # Allow setting it to false for testing
+    external: true
