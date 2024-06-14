@@ -1,5 +1,5 @@
 from app.models import *
-from backend.app.src.schemas import users as user_schema
+from app.src.schemas import users as user_schema
 from sqlmodel import Session, select
 
 def create_user(*, session: Session, user_create: user_schema.UserCreate) -> User:

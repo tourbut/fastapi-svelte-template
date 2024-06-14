@@ -3,8 +3,8 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 
 from app.src.deps import SessionDep,SessionDep_async
-from backend.app.src.crud import users as user_crud
-from backend.app.src.schemas import users as user_schema
+from app.src.crud import users as user_crud
+from app.src.schemas import users as user_schema
 
 from app.core.config import settings
 
