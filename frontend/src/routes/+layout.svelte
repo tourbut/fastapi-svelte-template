@@ -2,7 +2,6 @@
     import '../app.css';
     import { sample_store } from '$lib/stores';
     console.log($sample_store);
-
 </script>
   
 <nav class="bg-gray-800 p-4">
