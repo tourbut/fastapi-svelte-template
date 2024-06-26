@@ -1,14 +1,18 @@
 <script>
     import '../app.css';
-  </script>
+    import { sample_store } from '$lib/stores';
+    console.log($sample_store);
+
+</script>
   
-  <nav class="bg-gray-800 p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="flex space-x-4">
-        <a href="/" class="text-gray-300 hover:text-white">Home</a>
-        <a href="/test" class="text-gray-300 hover:text-white">Test</a>
-        <a href="/user" class="text-gray-300 hover:text-white">User</a>
-      </div>
+<nav class="bg-gray-800 p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="flex space-x-4">
+      <a href="/" class="text-gray-300 hover:text-white">Home</a>
+      <a href="/test" class="text-gray-300 hover:text-white">Test</a>
+      <a href="/user" class="text-gray-300 hover:text-white">User</a>
     </div>
-  </nav>
-  <slot></slot>
+  </div>
+</nav>
+
+<slot></slot>
