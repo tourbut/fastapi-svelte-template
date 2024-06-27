@@ -1,8 +1,13 @@
 <script>
     import '../app.css';
-    import { sample_store } from '$lib/stores';
+    import { APP_NAME,sample_store } from '$lib/stores';
     console.log($sample_store);
 </script>
+<svelte:head>
+	<title>
+		{$APP_NAME}
+	</title>
+</svelte:head>
   
 <nav class="bg-gray-800 p-4">
   <div class="container mx-auto flex justify-between items-center">
