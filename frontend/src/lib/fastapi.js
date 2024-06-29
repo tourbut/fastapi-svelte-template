@@ -1,4 +1,4 @@
-import { FASTAPI_BASE_URL } from '$lib/constants';
+import { API_URL } from '$lib/constants';
 
 import { sample_store } from '$lib/stores';
 import {get} from "svelte/store"
@@ -17,7 +17,7 @@ const fastapi = async (operation, url, params, success_callback, failure_callbac
     let content_type = 'application/json'
     let body = JSON.stringify(params)
 
-    let _url = FASTAPI_BASE_URL + url
+    let _url = API_URL + url
 
     if (method === 'get' || method === 'delete') {
         _url += "?" + new URLSearchParams(params)
