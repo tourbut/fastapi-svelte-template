@@ -4,15 +4,8 @@ from sqlmodel import Session, select
 
 class UserCreate(CommonBase):
     username: str
-    password1: str
-    password2: str
-    email: str
-    
-    @classmethod
-    def check_password(self):
-        if self.password1 != self.password2:
-            return False
-        return True
+    password: str
+    email: EmailStr | None = Field(default=None, max_length=255)
 
 class UserPublic(SQLModel):
     id: int

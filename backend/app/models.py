@@ -1,4 +1,5 @@
 from sqlmodel import Field, Relationship, SQLModel,DateTime,String,Integer
+from pydantic import EmailStr
 
 from datetime import datetime
 
@@ -11,4 +12,4 @@ class User(CommonBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     username: str = Field(unique=True, nullable=False)
     password: str = Field(nullable=False)
-    email: str = Field(unique=True, nullable=False)
+    email: EmailStr = Field(unique=True, index=True, max_length=255)

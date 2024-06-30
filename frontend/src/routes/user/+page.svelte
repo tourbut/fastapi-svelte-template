@@ -1,40 +1,43 @@
 <script>
-    import Error from "$lib/components/Error.svelte";
-    import { post_user } from "$lib/apis/user";
+  import { goto } from '$app/navigation';
+  import Error from "$lib/components/Error.svelte";
+  import { post_user } from "$lib/apis/user";
 
-    let error = {detail:[]}
-    let username = ''
-    let password1 = ''
-    let password2 = ''
-    let email = ''
+  let error = {detail:[]}
+  let username = ''
+  let password1 = ''
+  let password2 = ''
+  let email = ''
 
-    function handleSubmit(event) {
-        event.preventDefault();
+  const handleSubmit = async () => {
 
-        let params = {
-            username: username,
-            password1: password1,
-            password2: password2,
-            email: email
+    if (password1 !== password2) {
+        error={detail: "비밀번호가 일치하지 않습니다."}
+        return
+    }
+    
+    let params = {
+        username: username,
+        password: password1,
+        email: email
+    }
+
+    let success_callback = (json) => {
+            goto('/')
         }
-        let success_callback = (json) => {
-                console.log('created user successfully')
-            }
 
-        let failure_callback = (json_error) => {
-                console.log('error')
-                error = json_error
-            }
+    let failure_callback = (json_error) => {
+            error = json_error
+        }
 
-        post_user(params, success_callback, failure_callback);
+    await post_user(params, success_callback, failure_callback);
   }
 
 </script>
 
 <div class="form-container">
     <h5 class="form-title">회원 가입</h5>
-    <Error {error} />
-    <form method="post" class="form-layout">
+    <form method="post" class="form-layout" on:submit|preventDefault={() => {handleSubmit();}}>
       <div>
         <label for="username" class="form-label">사용자 이름</label>
         <input type="text" class="form-input" id="username" bind:value={username}>
@@ -51,6 +54,7 @@
         <label for="email" class="form-label">이메일</label>
         <input type="text" class="form-input" id="email" bind:value={email}>
       </div>
-      <button type="submit" class="form-button" on:click={handleSubmit}>생성하기</button>
+      <button type="submit" class="form-button">생성하기</button>
+      <Error error={error} />
     </form>
-  </div>
+</div>
