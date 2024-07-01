@@ -3,7 +3,7 @@ version: '1.0'
 services:
   db:
     image: pgvector/pgvector:pg16
-    container_name: knowsdb
+    container_name: template-db
     restart: always
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
@@ -17,6 +17,49 @@ services:
       - POSTGRES_DB=${POSTGRES_DB?Variable not set}
     ports:
       - "5432:5432"
+    networks:
+      - knowslog-public
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file: 
+      - Prod.env
+    environment:
+      TZ: "Asia/Seoul"  # timezone 설정 부분
+    ports:
+      - 8000:80
+    volumes:
+      - ./backend/app/:/app/app
+      - ./frontend/nginx/Nginx/tmp:/tmp
+      - ./backend/logs:/logs
+    networks:
+      - knowslog-public
+    depends_on:
+      - db
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      TZ: "Asia/Seoul"  # timezone 설정 부분
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./frontend/nginx/logs:/var/log/nginx
+      - ./frontend/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/nginx/certbot/conf:/etc/letsencrypt
+      - ./frontend/nginx/certbot/www:/var/www/certbot
+      - ./frontend/nginx/Nginx/tmp:/tmp
+    networks:
+      - knowslog-public
+    depends_on:
+      - backend
   
 volumes:
   app-db-data:
