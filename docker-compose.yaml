@@ -68,4 +68,4 @@ volumes:
 networks:
   knowslog-public:
     # Allow setting it to false for testing
-    external: true
+    #external: true
