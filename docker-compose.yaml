@@ -58,6 +58,7 @@ services:
       - ./frontend/nginx/certbot/www:/var/www/certbot
       - ./frontend/nginx/Nginx/tmp:/tmp
       - ./frontend/build:/usr/share/nginx/html
+    command: /bin/sh -c "/conf.sh && nginx -g 'daemon off;'"
     networks:
       - knowslog-public
     depends_on:

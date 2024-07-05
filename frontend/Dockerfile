@@ -12,4 +12,3 @@ RUN apt-get update && \
 COPY ./frontend/nginx/nginx.conf.template /etc/nginx/nginx.conf.template
 COPY ./frontend/nginx/conf.sh /conf.sh
 RUN chmod +x /conf.sh
-RUN /conf.sh
