@@ -33,7 +33,7 @@ services:
       - 8000:8000
     volumes:
       - ./backend/app/:/app/app
-      - ./frontend/nginx/Nginx/tmp:/tmp
+      - ./frontend/nginx/certbot/conf:/etc/letsencrypt
       - ./backend/logs:/logs
     networks:
       - knowslog-public
