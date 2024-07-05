@@ -8,8 +8,8 @@ services:
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
       - ./script/initdb:/docker-entrypoint-initdb.d
-    env_file:
-      - .env
+    env_file: 
+      - Prod.env
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
@@ -47,12 +47,13 @@ services:
       dockerfile: frontend/Dockerfile
     environment:
       TZ: "Asia/Seoul"  # timezone 설정 부분
+    env_file: 
+      - Prod.env
     ports:
       - 80:80
       - 443:443
     volumes:
       - ./frontend/nginx/logs:/var/log/nginx
-      - ./frontend/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./frontend/nginx/certbot/conf:/etc/letsencrypt
       - ./frontend/nginx/certbot/www:/var/www/certbot
       - ./frontend/nginx/Nginx/tmp:/tmp
