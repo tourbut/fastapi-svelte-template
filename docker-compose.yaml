@@ -61,7 +61,20 @@ services:
       - knowslog-public
     depends_on:
       - backend
-  
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+    - ./frontend/nginx/logs/letsencrypt:/var/log/letsencrypt
+    - ./frontend/nginx/certbot/conf:/etc/letsencrypt
+    - ./frontend/nginx/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - knowslog-public
+    depends_on:
+      - frontend
 volumes:
   app-db-data:
 
