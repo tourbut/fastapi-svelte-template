@@ -30,7 +30,7 @@ services:
     environment:
       TZ: "Asia/Seoul"  # timezone 설정 부분
     ports:
-      - 8000:80
+      - 8000:8000
     volumes:
       - ./backend/app/:/app/app
       - ./frontend/nginx/Nginx/tmp:/tmp
