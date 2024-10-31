@@ -1,12 +1,11 @@
 # Stage 1: Build the React app
-FROM node:14 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
-COPY ./frontend/package.json ./frontend/package-lock.json ./
-RUN npm install
+COPY ./frontend .
 
-COPY ./frontend ./
+RUN npm install
 RUN npm run build
 
 # Stage 2: Serve the app from Nginx
