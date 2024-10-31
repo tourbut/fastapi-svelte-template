@@ -25,3 +25,5 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 COPY ./frontend/nginx/nginx.conf.template /etc/nginx/nginx.conf.template
 COPY ./frontend/nginx/conf.sh /conf.sh
+
+RUN chmod +x /conf.sh
